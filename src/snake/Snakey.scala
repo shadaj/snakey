@@ -28,7 +28,7 @@ class Snakey extends PApplet {
   override def setup() = {
     size(screenSize, screenSize)
     background(black)
-    frameRate(15)
+    frameRate(10)
   }
 
   override def draw() = {
@@ -55,6 +55,7 @@ class Snakey extends PApplet {
     if (snake.parts.last.coordinates == fruit.coordinates) {
       fill(0)
       rect(fruit.coordinates._2 * boxThickness, fruit.coordinates._1 * boxThickness, boxThickness, boxThickness)
+      snake.grow
       fruit = new Fruit
     }
   }

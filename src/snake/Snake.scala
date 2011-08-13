@@ -2,7 +2,7 @@ package snake
 import scala.collection.mutable
 
 class Snake {
-  val parts = mutable.IndexedSeq(new BodyPart((41, 50), "down"), new BodyPart((42, 50), "down"), new BodyPart((43, 50), "down"), new BodyPart((44, 50), "down"), new BodyPart((45, 50), "down"), new BodyPart((46, 50), "down"), new BodyPart((47, 50), "down"), new BodyPart((48, 50), "down"), new BodyPart((49, 50), "down"), new BodyPart((50, 50), "down"))
+  var parts = mutable.IndexedSeq(new BodyPart((41, 50), "down"))
 
   def updateSnake {
     parts.zipWithIndex.foreach {
@@ -18,5 +18,15 @@ class Snake {
           parts(i).coordinates = parts(i + 1).coordinates
         }
     }
+  }
+  def grow {
+    val tail = parts.first
+    val newTail = tail.direction match {
+      case "up" => new BodyPart((tail.coordinates._1 + 1, tail.coordinates._2), tail.direction)
+      case "down" => new BodyPart((tail.coordinates._1 - 1, tail.coordinates._2), tail.direction)
+      case "left" => new BodyPart((tail.coordinates._1, tail.coordinates._2 + 1), tail.direction)
+      case "right" => new BodyPart((tail.coordinates._1, tail.coordinates._2 - 1), tail.direction)
+    }
+    parts = newTail +: parts
   }
 }
