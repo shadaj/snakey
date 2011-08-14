@@ -27,7 +27,7 @@ class Snakey extends PApplet {
 
   override def setup() = {
     size(screenSize, screenSize)
-    background(black)
+    background(white)
     frameRate(10)
   }
 
@@ -43,18 +43,18 @@ class Snakey extends PApplet {
       }
     }
 
-    background(black)
-    fill(white)
+    background(white)
+    fill(0, 255, 0)
     println("drawing")
     snake.parts.foreach { part =>
-      rect(part.coordinates._2 * boxThickness, part.coordinates._1 * boxThickness, boxThickness, boxThickness)
+      rect(part.coordinates._1 * boxThickness, part.coordinates._2 * boxThickness, boxThickness, boxThickness)
     }
     fill(255, 0, 0)
-    rect(fruit.coordinates._2 * boxThickness, fruit.coordinates._1 * boxThickness, boxThickness, boxThickness)
+    rect(fruit.coordinates._1 * boxThickness,fruit.coordinates._2 * boxThickness, boxThickness, boxThickness)
     snake.updateSnake
     if (snake.parts.last.coordinates == fruit.coordinates) {
-      fill(0)
-      rect(fruit.coordinates._2 * boxThickness, fruit.coordinates._1 * boxThickness, boxThickness, boxThickness)
+      fill(white)
+      rect(fruit.coordinates._1 * boxThickness,fruit.coordinates._2 * boxThickness, boxThickness, boxThickness)
       snake.grow
       fruit = new Fruit
     }
