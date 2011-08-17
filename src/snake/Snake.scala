@@ -2,7 +2,7 @@ package snake
 import scala.collection.mutable
 
 class Snake {
-  var parts = mutable.IndexedSeq(new BodyPart((50, 50), "down"))
+  var parts = IndexedSeq(new BodyPart((50, 50), "down"))
 
   def updateSnake {
     parts.zipWithIndex.foreach {

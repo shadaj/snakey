@@ -19,7 +19,8 @@ class Snakey extends PApplet {
   val white = 255
   val gridSize = 100
   val screenSize = 1000
-
+  
+  var red = 255
   var fruit = new Fruit
   val snake = new Snake
 
@@ -49,14 +50,16 @@ class Snakey extends PApplet {
     snake.parts.foreach { part =>
       rect(part.coordinates._1 * boxThickness, part.coordinates._2 * boxThickness, boxThickness, boxThickness)
     }
-    fill(255, 0, 0)
+    fill(red, 0, 0)
     rect(fruit.coordinates._1 * boxThickness,fruit.coordinates._2 * boxThickness, boxThickness, boxThickness)
     snake.updateSnake
-    if (snake.parts.last.coordinates == fruit.coordinates) {
+    red = red - 1
+    if (snake.parts.last.coordinates == fruit.coordinates || red == 0) {
       fill(white)
       rect(fruit.coordinates._1 * boxThickness,fruit.coordinates._2 * boxThickness, boxThickness, boxThickness)
       snake.grow
       fruit = new Fruit
+      red = 255
     }
   }
 }
