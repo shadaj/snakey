@@ -1,5 +1,5 @@
 package snake
 
-class Fruit {
-  val coordinates = ((Math.random * 100).toInt, (Math.random * 100).toInt)
+class Fruit(gridWidth: Int, gridHeight: Int) {
+  val coordinates = ((Math.random * gridWidth).toInt, (Math.random * gridHeight).toInt)
 }
