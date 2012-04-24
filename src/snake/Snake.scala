@@ -1,24 +1,19 @@
 package snake
-import scala.collection.mutable
 
-class Snake {
-  var parts = IndexedSeq(new BodyPart((50, 50), "down"))
+class Snake(gridSize: Int) {
+  var parts = List(new BodyPart((gridSize/2, gridSize/2), "down"))
 
   def updateSnake {
-    parts.zipWithIndex.foreach {
-      case (p, i) =>
-        if (i == parts.length - 1) {
-          p.direction match {
-            case "up" => p.coordinates = (p.coordinates._1, p.coordinates._2 - 1)
-            case "down" => p.coordinates = (p.coordinates._1, p.coordinates._2 + 1)
-            case "left" => p.coordinates = (p.coordinates._1 - 1, p.coordinates._2)
-            case "right" => p.coordinates = (p.coordinates._1 + 1, p.coordinates._2)
-          }
-        } else {
-          parts(i).coordinates = parts(i + 1).coordinates
-        }
-    }
+    val p: BodyPart = parts.last
+    parts = parts.tail :+
+    	 (p.direction match {
+            case "up" => p.copy(coordinates = (p.coordinates._1, p.coordinates._2 - 1))
+            case "down" => p.copy(coordinates = (p.coordinates._1, p.coordinates._2 + 1))
+            case "left" => p.copy(coordinates = (p.coordinates._1 - 1, p.coordinates._2))
+            case "right" => p.copy(coordinates = (p.coordinates._1 + 1, p.coordinates._2))
+          })
   }
+  
   def grow {
     val tail = parts.first
     val newTail = tail.direction match {
