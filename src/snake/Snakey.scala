@@ -2,13 +2,14 @@ package snake
 
 import processing.core._
 
-object Snakey extends PApplet {
+object Snakey {
   def main(args: Array[String]) {
     val game = new Snakey
     val frame = new javax.swing.JFrame("Snakey")
-    frame.getContentPane().add(game)
+    frame.add(game)
     game.init
 
+    frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE)
     frame.pack
     frame.setVisible(true)
   }
@@ -17,12 +18,12 @@ object Snakey extends PApplet {
 class Snakey extends PApplet {
   val black = 0
   val white = 255
-  val gridSize = 100
-  val screenSize = 1000
+  val gridSize = 50
+  val screenSize = 500
   
   var red = 255
-  var fruit = new Fruit
-  val snake = new Snake
+  var fruit = new Fruit(gridSize, gridSize)
+  val snake = new Snake(gridSize)
 
   val boxThickness = screenSize / gridSize
 
@@ -58,7 +59,9 @@ class Snakey extends PApplet {
       fill(white)
       rect(fruit.coordinates._1 * boxThickness,fruit.coordinates._2 * boxThickness, boxThickness, boxThickness)
       snake.grow
-      fruit = new Fruit
+      val dim = getSize()
+      println(dim)
+      fruit = new Fruit(dim.width/boxThickness, dim.height/boxThickness)
       red = 255
     }
   }
